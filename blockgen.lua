@@ -164,8 +164,9 @@ end
 if #shapes == 0 then
     graceful_error("You didn't input any shapes! Exiting.")
 end
+types = 0
 while run == 0 do
-    local types = getInput(cyan.."Input the number of shape types you will be generating. Each will have their own requests, decimals will be truncated: "..white,"Number")
+    types = getInput(cyan.."Input the number of shape types you will be generating. Each will have their own requests, decimals will be truncated: "..white,"Number")
     if types == 0 then
         print(red.."Invalid number."..white)
     else
