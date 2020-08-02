@@ -240,7 +240,7 @@ for x = 1,types do
             print("")
         end
         for z = 1,sizes do
-            file:write("    {"..(start+((x-1)*#shapes*(types+1)+(x-1))+(y-1)*types+(y-x)+z)..", {\n")
+            file:write("    {"..(start+((x-1)*#shapes*(types+1)+(x-1))+(y-1)*types+(y-x)+z).."\n")
             tab = "        "
             if z == 1 and y == 1 then
                 file:write(tab.."name = \""..data[x].Name.."\"\n")
@@ -267,7 +267,7 @@ for x = 1,types do
                 file:write(tab.."extends = "..(start+((x-1)*#shapes*(types+1)+(x-1))+(y-1)*types+(y-x)+1).."\n")
                 file:write(tab.."scale = "..sizeoffset+z.."\n")
             end
-            file:write("    }}\n")
+            file:write("    }\n")
         end
     end
 end
