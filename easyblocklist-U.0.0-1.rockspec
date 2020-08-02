@@ -21,6 +21,6 @@ dependencies = {
 build = {
    type = "builtin",
    modules = {
-      EBL = "src/blockgen.lua"
+      EBL = "blockgen.lua"
    }
 }
