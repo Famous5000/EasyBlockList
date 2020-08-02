@@ -22,11 +22,13 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
-    - name: Install Lua/LuaJIT
+
     - uses: leafo/gh-actions-lua@v6
       with:
         luaVersion: "5.2.4"
+      
     - uses: leafo/gh-actions-luarocks@v2
+    
     - name: build
       run: |
         luarocks install busted
