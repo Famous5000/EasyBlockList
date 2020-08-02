@@ -31,5 +31,4 @@ jobs:
     
     - name: build
       run: |
-        luarocks install busted
         luarocks make
