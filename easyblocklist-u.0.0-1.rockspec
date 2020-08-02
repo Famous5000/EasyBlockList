@@ -1,5 +1,5 @@
 package = "EasyBlockList"
-version = "U.0.0"
+version = "U.0.0-1"
 source = {
    url = "git://github.com/Famous5000/EasyBlockList",
    tag = "U.0.0"
