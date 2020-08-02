@@ -103,7 +103,7 @@ function getInput(Request, Type)
         return io.read("*line")
     elseif Type == "Number" then -- Number assertion.
         io.write(Request)
-        IN = io.read("*line")
+        local IN = io.read("*line")
         if tonumber(IN) == nil then
             print(red.."Invalid number."..white)
             return getInput(Request, Type)
@@ -112,7 +112,7 @@ function getInput(Request, Type)
         end
     elseif Type == "ONumber" then -- Optional number assertion.
         io.write(Request)
-        IN = io.read("*line")
+        local IN = io.read("*line")
         if IN == "" then
             return 0
         end
@@ -124,10 +124,10 @@ function getInput(Request, Type)
         end
     elseif Type == "Paragraph" then -- Multi-line input
         io.write(Request.."\n")
-        Out = ""
+        local Out = ""
         while true do
             io.write("> "..green)
-            IN = io.read("*line")
+            local IN = io.read("*line")
             io.write(white)
             if IN:len() == 0 then
                 if Out:len() ~= 0 then
@@ -139,8 +139,8 @@ function getInput(Request, Type)
         end
     elseif Type == "Hex6" then -- Color 0xRRGGBB
         io.write(Request)
-        IN = io.read("*line")
-        match = parse_hex(IN)
+        local IN = io.read("*line")
+        local match = parse_hex(IN)
         if match == nil then
             print(red.."Invalid color6 value. You should format it similar to this:"..green.."0xRRGGBB"..red..", "..green.."RRGGBB"..red..", or "..green.."RGB"..red..".")
             return getInput(Request,Type)
@@ -154,7 +154,7 @@ end
 run = 1
 shapes = {}
 while run ~= 0 do
-    IN = getInput(cyan.."Input shape, or if you are done, leave empty: "..white)
+    local IN = getInput(cyan.."Input shape, or if you are done, leave empty: "..white)
     if IN:len() == 0 then
         run = 0
     else
@@ -165,7 +165,7 @@ if #shapes == 0 then
     graceful_error("You didn't input any shapes! Exiting.")
 end
 while run == 0 do
-    types = getInput(cyan.."Input the number of shape types you will be generating. Each will have their own requests, decimals will be truncated: "..white,"Number")
+    local types = getInput(cyan.."Input the number of shape types you will be generating. Each will have their own requests, decimals will be truncated: "..white,"Number")
     if types == 0 then
         print(red.."Invalid number."..white)
     else
@@ -188,7 +188,7 @@ while run == 1 do
 end
 data = {}
 for i = 1,types do
-    prefix = red.."- "..white..i..red.."/"..white..types.." "
+    local prefix = red.."- "..white..i..red.."/"..white..types.." "
     data[i] = {}
     data[i].Name = getInput(prefix..cyan.."Enter name of the block type. This will be shared along the type: "..white)
     data[i].Blurb = getInput(prefix..cyan.."Enter description of the block, using an empty line to finish: "..white,"Paragraph") -- This is the last line that uses the definitions provided by the color codes above. The rest is used via the ansi-conversion functions.
@@ -197,11 +197,11 @@ for i = 1,types do
     data[i].lineColor = "0x"..getInput(prefix..ansi(FG.BRIGHT_CYAN).."Enter the lineColor of the block: "..ansi(STYLE.RESET),"Hex6")
     data[i].density = getInput(prefix..temp_ansi("Enter the density multiplier per area of the block: ",FG.BRIGHT_CYAN),"Number")
     data[i].durability = getInput(prefix..temp_ansi("Enter the durability multiplier per area of the block: ",FG.BRIGHT_CYAN),"Number")
-    features = getInput(prefix..temp_ansi("Enter any features that you would need the block to have, separated by |'s. If left empty, this field will not be auto-generated.\nExamples are "..ansi(FG.GREEN).."NORECOLOR|EXPLODE|TRACTOR"..ansi(FG.BRIGHT_CYAN)..": ",FG.BRIGHT_CYAN))
+    local features = getInput(prefix..temp_ansi("Enter any features that you would need the block to have, separated by |'s. If left empty, this field will not be auto-generated.\nExamples are "..ansi(FG.GREEN).."NORECOLOR|EXPLODE|TRACTOR"..ansi(FG.BRIGHT_CYAN)..": ",FG.BRIGHT_CYAN))
     if features ~= "" then
         data[i].features = features
     end
-    capacity = getInput(prefix..temp_ansi("Enter the amount of R-capacity for this type of block to have. Leave blank or put 0 to exclude this field from auto-generation: ",FG.BRIGHT_CYAN),"ONumber")
+    local capacity = getInput(prefix..temp_ansi("Enter the amount of R-capacity for this type of block to have. Leave blank or put 0 to exclude this field from auto-generation: ",FG.BRIGHT_CYAN),"ONumber")
     if capacity ~= 0 then
         data[i].capacity = capacity
     end
@@ -212,6 +212,7 @@ if total > 200 then
     print(temp_ansi("Warning: You're writing over 200 individual blocks. The range 0-200 will be automatically disabled."))
 end
 N = getInput(temp_ansi("Input the starting ID for the blocks. Leave empty for the default setting: ",FG.BRIGHT_CYAN),"ONumber")
+start = 0
 if N + total > 200 and N < 17000 then
     start = 17000
     print(temp_ansi("Warning: You specified a range that would overwrite vanilla blocks. Switching the start range to 17000.",FG.RED))
@@ -220,6 +221,7 @@ else
 end
 file = nil
 while file == nil do
+    local error
     file,error = io.open(getInput(temp_ansi("Finally, insert the location that the blocks will be written to, ending with the file-name: ",FG.BRIGHT_CYAN)),"w")
     if file == nil then
         print(temp_ansi("Error: "..error,BG.RED))
@@ -241,7 +243,7 @@ for x = 1,types do
         end
         for z = 1,sizes do
             file:write("    {"..(start+((x-1)*#shapes*(types+1)+(x-1))+(y-1)*types+(y-x)+z).."\n")
-            tab = "        "
+            local tab = "        "
             if z == 1 and y == 1 then
                 file:write(tab.."name = \""..data[x].Name.."\"\n")
                 file:write(tab.."blurb = \""..data[x].Blurb.."\"\n")
