@@ -251,6 +251,7 @@ for x = 1,types do
                 file:write(tab.."density = "..data[x].density.."\n")
                 file:write(tab.."scale = "..sizeoffset+z.."\n")
                 file:write(tab.."shape = "..shapes[y].."\n")
+                file:write(tab.."group = "..faction.."\n")
                 if data[x].features ~= nil then
                     file:write(tab.."features = "..data[x].features.."\n")
                 end
