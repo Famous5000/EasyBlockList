@@ -131,7 +131,7 @@ function getInput(Request, Type)
             io.write(white)
             if IN:len() == 0 then
                 if Out:len() ~= 0 then
-                    Out = string.sub(1,Out:len()-1)
+                    Out = Out:sub(1,Out:len()-1)
                 end
                 return Out
             end
