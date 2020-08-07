@@ -252,6 +252,7 @@ for x = 1,types do
                 file:write(tab.."fillColor1 = "..data[x].fillColor1.."\n")
                 file:write(tab.."lineColor = "..data[x].lineColor.."\n")
                 file:write(tab.."density = "..data[x].density.."\n")
+                file:write(tab.."durability = "..data[x].durability.."\n")
                 file:write(tab.."scale = "..sizeoffset+z.."\n")
                 file:write(tab.."shape = "..shapes[y].."\n")
                 file:write(tab.."group = "..faction.."\n")
